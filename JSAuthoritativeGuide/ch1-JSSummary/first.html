@@ -1,0 +1,17 @@
+<html>
+	<head>First javascript</head>
+	<body>
+		<p>This is a paragraph of html</p>
+		<script>
+			function moveon()
+			{
+				//通过弹出一个对话框来询问用户一个问题
+				var answer = confirm("are you ready?");
+				//单击一个确定按钮，浏览器会加载一个新页面
+				if (answer)
+					window.location = "http://www.baidu.com";
+			}
+			setTimeout(moveon,5000);//5s后运行函数moveon()
+		</script>
+	</body>
+</html>
