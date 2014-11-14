@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    	<title>JavaScript Loan Calculator</title>
+        <style>
+			/* CSS样式表，定义了程序输出的样式*/
+			.output {font-weight:bold;} /* 计算结果定义为粗体*/
+			#payment { text-decoration:underline} /*定义 id="payment"的元素样式*/
+			#graph { border:solid black 1px} /* 图表有一个像素的边框*/
+			th,td { vertical-align:top} /* 表格单元格对其方式为顶端对齐*/ 
+		</style>
+    </head>
+    <body>
+    	<!-- 这是一个HTML表格，其中包含<input>元素可以用来输入数据。程序将在<span>元速中显示计算结果，
+        这些元素都具有类似“interst”和“years”的id,这些id将在表格下面的JavaScript代码中用到。我们注意到
+        ，有一些input元素定义了“onchange”或"onclick"的事件处理程序，以便用户在输入数据或者点击inputs时执行指定的
+        javascript代码段-->
+        <table>
+        	<tr>
+            	<th>Enter Loan Data:</th>
+                <td></td>
+                <th>Loan Balance,Cumulative Equity, and Interest Payments</th>
+            </tr>
+            <tr>
+            	<td>Amount of the loan ($):</td>
+                <td><input id="amount" onChange="calculate();"></td>
+                <td rowspan="8">
+                	<canvas id="graph" width="400" height="250"></canvas>
+                </td>
+            </tr>
+            <tr>
+            	<td>Annual interest (%):</td>
+                <td><input id="apr" onChange="calculate();"></td>
+            </tr>
+            <tr>
+            	<td>Repayment period (years):</td>
+                 <td><input id="years" onChange="calculate();"></td>
+            </tr>
+            <tr>
+            	<td>Zipcode (to find lenders):</td>
+                <td><input id="zipcode" onChange="calculate();"></td>
+            </tr>
+            <tr>
+            	<th>Approximate payments:</th>
+                <td><button onClick="calculate();">Calculate</button></td>
+            </tr>
+            <tr>
+            	<td>Monthly payment:</td>
+                <td>$<span class="output" id="payment"></span></td>
+            </tr>
+            <tr>
+            	<td>Total payment:</td>
+                <td>$<span class="output" id="total"></span></td>
+            </tr>
+            <tr>
+            	<td>Total interest:</td>
+                <td>$<span class="output" id="totalinterest"></span></td>
+            </tr>
+            <tr>
+            	<th>Sponsors:</th>
+                <td colspan="2">
+                	Apply for your loan with one of these fine lenders:<div id="lenders"></div>
+                </td>
+            </tr>      
+        </table>
+        <!--随后是javascript代码，这些代码内嵌在了一个<script>标签里
+        通常情况下，这些脚本代码应当放在<head>标签中，将javascript代码放在html代码之后仅仅是为了便于理解
+        -->
+        <script>
+		"use strict"; //如果浏览器支持的话，则开启ECMAScript 5 的严格模式
+		/*这里的脚本定义了calculate()函数，在Html代码中绑定事件处理程序是会调用它
+		*这个函数从<input>元素中读取数据，计算贷款赔付信息，并将结果显示在<span>元素中
+		*同样，这里还保存了用户数据，展示了放贷人链接并绘制了图表
+		*/
+		function calculate()
+		{
+			//查找文档中用于输入输出的元素
+			var amount = document.getElementById("amount");
+			var apr = document.getElementById("apr");
+			var years = document.getElementById("years");
+			var zipcode = document.getElementById("zipcode");
+			var payment = document.getElementById("payment");
+			var total = document.getElementById("total");
+			var totalinterest = document.getElementById("totalinterest");
+			
+			//假设所有的输入都是合法的，将从input元素中获取输入数据
+			//将百分比格式转换为小数格式，并从年利率转换为月利率
+			//将年度赔付转换为月度赔付
+			var principal = parseFloat(amount.value);
+			var interest = parseFloat(apr.value) / 100 /12;
+			var payments = parseFloat(years.value) * 12;
+			
+			//现在计算月度赔付数据
+			var x = Math.pow(1+interest, payments);// Math.pow()进行幂次运算
+			var monthly = (principal * x * interest) / (x -1);
+			
+			//结果如果没有超过javascript能表示的数字范围，且用户的输入也正确
+			//这里说展示的结果就是合法的
+			if(isFinite(monthly))
+			{
+				//将数据填充到输出字段的位置，四舍五入到小数点后两位数字
+				payment.innerHTML = monthly.toFixed(2);
+				total.innerHTML = (monthly * payments).toFixed(2);
+				totalinterest.innerHTML = ((monthly * payments) - principal).toFixed(2);
+				
+				//将用户的输入数据保存下来，这样在下次访问时也能取到数据
+				
+				//找到并展示本地放贷人，但忽略网络错误
+				try
+				{
+					
+				}
+				catch(e)
+				{
+					/* 忽略这些异常 */
+				}
+			}
+			
+		}
+		</script>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </body>
+</html>
