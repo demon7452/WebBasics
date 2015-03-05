@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		/* 本页的css样式表 */
+		/* class="reveal"的元素的子元素都不显示*/
+		.reveal * { display:none; }
+		/* 除了class="handle"的元素 */
+		.reveal *.handle { display:block; }
+	</style>
+    <script>
+		//所有的页面逻辑在onload事件之后启动
+		window.onload = function()
+		{	
+			/*function addRevealHandler(title,elt)
+			{
+				//点击修改class名称
+				title.onClick = function()
+				{
+					if(elt.className == "reveal")
+						elt.className = "revealed";
+					else if (elt.className == "revealed")
+						elt.className = "reveal";
+				}
+			}*/
+			
+			//找到所有class名为“reveal”的容器中的元素
+			var elements = document.getElementsByClassName("reveal");
+			//对reveal容器中的元素进行遍历
+			for(var i = 0; i < elements.length; i++)
+			{
+				var elt = elements[i];//
+				//找到容器handle中的元素
+				var title = elt.getElementsByClassName("handle")[0];
+				//单击click元素时，调用如下方法
+				title.onclick = function()
+				{
+				
+					if(elt.className == "reveal")
+						elt.className = "revealed";
+					else if (elt.className == "revealed")
+						elt.className = "reveal";
+				}
+			}
+		};
+	</script>
+</head>
+<body>
+	<div class="reveal">
+    	<h1 class="handle">Click Here to Reveal Hidden Text</h1>
+        <p>This paragraph is hidden. It apperas when you click on the title.</p>
+    </div>
+</body>
+</html>
