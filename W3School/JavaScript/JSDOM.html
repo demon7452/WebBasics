@@ -16,6 +16,10 @@
             -o-transition:width 2s;  Opera */
 
         }
+        .pt
+        {
+            font-size: 38px;
+        }
     </style>
 </head>
 <body onload="checkCookies()">
@@ -69,6 +73,27 @@
         obj.style.background="red";
         obj.innerHTML="请释放鼠标按钮";
     }
+
+    var num = 1;
+    /*添加和删除节点（HTML 元素）*/
+    function addElement()
+    {
+        var pText = document.createElement("p");
+        pText.className="pt";
+        var textNode = document.createTextNode("add new text"+num);
+        pText.appendChild(textNode);
+
+        var divElement = document.getElementById("div1");
+        divElement.appendChild(pText);
+        num++;
+    }
+    function deleteElement()
+    {
+        var divElement = document.getElementById("div1");
+        var pClass = document.getElementsByClassName("pt");//获得的是一个class 的数组。
+        divElement.removeChild(pClass[num-2]);
+        num--;
+    }
 </script>
 
 
@@ -76,6 +101,10 @@
 请输入英文字符：<input type="text" id="fname" onchange="myFunction()">
 <p>当您离开输入字段时，会触发将输入文本转换为大写的函数。</p>
 <div onmouseover="mOver(this)" onmouseout="mOut(this)" onmouseup="mUp(this)" onmousedown="mDown(this)"  style="background-color:#175c80;width:120px;height:20px;padding:40px;color:#fbfff9;">把鼠标移到上面</div>
+<div id="div1">
+    <button id="add" onclick="addElement()">add</button>
+    <button id="delete" onclick="deleteElement()">delete</button>
+</div>
 </body>
 </html>
 
