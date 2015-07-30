@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>JavaScipt Object</title>
+    <style>
+        body
+        {
+            font-size: 20px;
+            background-color:honeydew;
+        }
+        .ap
+        {
+            font-size: 30px;
+            font-family: bold;
+            color: brown;
+        }
+    </style>
+    <script>
+        /*
+          create javascript object
+         */
+        function createObj()
+        {
+            var person = new Object();
+            person.firstname = "hello";
+            person.lastname = "world";
+            person.age = 88;
+            var pElement = document.getElementById("createObj");
+            pElement.innerHTML = person.firstname +" "+person.lastname + " is " + person.age + " years old.";
+            pElement.style.fontSize = "30px";
+            pElement.style.color = "red";
+        }
+
+        //使用对象构造器
+        function personAdd(fn,ln,ageA)
+        {
+            this.fn = fn;
+            this.ln = ln;
+            this.ageA = ageA;
+        }
+        function addButton()
+        {
+            var fn = document.getElementById("fn").value;
+            var ln = document.getElementById("ln").value;
+            var ageA = document.getElementById("ageA").value;
+            var newPerson = new personAdd(fn,ln,ageA);
+
+            //添加元素<p></p>
+            var p = document.createElement("p");
+            p.className = "ap";
+            var text = document.createTextNode(newPerson.fn+ " " + newPerson.ln + " is " + newPerson.ageA +" years old.");
+            p.appendChild(text);
+
+            //将元素P加入body中。
+            //var bodyElement = document.getElementsByTagName("body");
+            var divElement = document.getElementById("div1");
+            divElement.appendChild(p);
+
+        }
+
+        /*
+        字符串对象处理
+         */
+        var txt = "Hello world!";
+        document.write(txt.length+"</br>");
+        document.write(txt.italics()+"</br>");
+        document.write(txt.fontcolor("red")+"</br>");
+        document.write(txt.link("http://www.baidu.com")+"</br>");
+        document.write(txt.indexOf("world")+"</br>");
+        document.write(txt.match("woorld")+"</br>");
+        document.write(txt.replace(/world/,"nimab")+"</br>");
+
+        /*
+        日期对象
+         */
+        var weekday=new Array(7);
+        weekday[0]="星期日";
+        weekday[1]="星期一";
+        weekday[2]="星期二";
+        weekday[3]="星期三";
+        weekday[4]="星期四";
+        weekday[5]="星期五";
+        weekday[6]="星期六";
+
+        document.write(Date()+"</br>");
+        document.write(new Date().getTime()+"</br>");
+        var date = new Date();
+        date.setFullYear(2045,10,1);
+        document.write(date+"</br>");
+        document.write("today is "+weekday[date.getDay()]+"</br>");
+
+        document.write(new Date().toUTCString()+"</br>");
+
+
+        document.write("today is "+weekday[new Date().getDay()]+"</br>");
+
+        /*
+         显示一个钟表
+         */
+        function startTime()
+        {
+            var today=new Date();
+            var h=today.getHours();
+            var m=today.getMinutes();
+            var s=today.getSeconds();
+            // add a zero in front of numbers<10
+            m=checkTime(m);
+            s=checkTime(s);
+            document.getElementById('txt').innerHTML=h+":"+m+":"+s;
+            setTimeout('startTime()',500);//500毫秒启动一次
+        }
+
+        function checkTime(i)
+        {
+            if (i<10)
+            {i="0" + i}
+            return i
+        }
+
+        /*
+         JavaScript Array（数组）对象
+         */
+        var arr = new Array(3);
+        arr[0] = "George";
+        arr[1] = "John";
+        arr[2] = "Thomas";
+
+        document.write(arr.join());
+
+        document.write("<br />");
+
+        document.write(arr.join(";"));
+
+        document.write("<br />");
+        document.write(Math.round(0.60) + "<br />");
+        document.write(Math.random());
+        document.write("<br />");
+        document.write(Math.max(7.25,7.30));
+        document.write("<br />");
+
+        //使用了 Math 对象的 floor() 方法和 random() 来返回一个介于 0 和 10 之间的随机数：
+        var num = Math.random();
+        document.write(num + "</br>");
+        document.write(num*10 + "</br>");
+        document.write(Math.floor(num*10) + "</br>");
+
+        /*
+         JavaScript RegExp 对象 正则表达式
+         */
+        var patt1 = new RegExp("e");
+        document.write(patt1.test("The best things in life are free") + "</br>");
+        document.write(patt1.exec("The best things in life are free") + "</br>");
+        patt1.compile("d");
+        document.write(patt1.test("The best things in life are free") + "</br>");
+    </script>
+</head>
+<body onload="startTime()">
+<div id="txt" style="font-size: 50px;color: red"></div>
+<p>test create javascript object:<button onclick="createObj()" style="font-size: 20px">creatObject</button></p>
+<p id="createObj"></p>
+<p>firstname:<input type="text" id="fn">lastname:<input type="text" id="ln">age:<input type="text" id="ageA"><button onclick="addButton()" style="font-size: 20px">add</button></p>
+<div id="div1"></div>
+
+</body>
+</html>
