@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>JavaScript Window - 浏览器对象模型</title>
+    <style>
+        body
+        {
+            font-size: 20px;
+            background-color: beige;
+        }
+    </style>
+    <script>
+        /**
+         * 有三种方法能够确定浏览器窗口的尺寸（浏览器的视口，不包括工具栏和滚动条）
+         */
+        //对于Internet Explorer、Chrome、Firefox、Opera 以及 Safari：对于 Internet Explorer 8、7、6、5：other.
+        var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+        /**
+         * window.screen 对象包含有关用户屏幕的信息。
+         */
+        var screenWidth = screen.availWidth;
+        var screenHeight = screen.availHeight;
+        function click1()
+        {
+            document.getElementById("p1").innerHTML = "宽度：" + width + " 高度：" + height + " screen:" + screenWidth + "  " + screenHeight;
+        }
+        /**
+         * window.location 对象用于获得当前页面的地址 (URL)，并把浏览器重定向到新的页面。
+         */
+        var hostnames = location.hostname;
+        var pathnames = location.pathname;
+        var portss = location.port;
+        var protocolss = location.protocol;
+        var str = hostnames + "  " +pathnames+ "  " +portss+ "  " +protocolss;
+        function newDoc()
+        {
+            document.getElementById("p2").innerHTML = str;
+            window.location.assign("http://www.w3school.com.cn");
+
+        }
+
+        /**
+         * window.history 对象包含浏览器的历史。
+         */
+
+        /**
+         * window.navigator 对象包含有关访问者浏览器的信息。
+         * @type {string}
+         */
+        function viewNavigator()
+        {
+            txt = "<p>Browser CodeName: " + navigator.appCodeName + "</p>";
+            txt+= "<p>Browser Name: " + navigator.appName + "</p>";
+            txt+= "<p>Browser Version: " + navigator.appVersion + "</p>";
+            txt+= "<p>Cookies Enabled: " + navigator.cookieEnabled + "</p>";
+            txt+= "<p>Platform: " + navigator.platform + "</p>";
+            txt+= "<p>User-agent header: " + navigator.userAgent + "</p>";
+            txt+= "<p>User-agent language: " + navigator.systemLanguage + "</p>";
+            document.getElementById("p3").innerHTML=txt;
+        }
+
+        /**
+         * 可以在 JavaScript 中创建三种消息框：警告框、确认框、提示框。
+         */
+        function message()
+        {
+            var name = prompt("请输入你的名字","大名");
+            if(name!=null && name != "")
+            {
+                var conf = confirm("your name is " + name);
+                if(conf == true)
+                {
+                    document.getElementById("p4").innerHTML = "hello " + name + ".Welcome!";
+                }
+                else
+                {
+                    alert("你个傻逼。"+'\n'+"try again.");
+                }
+            }
+            else
+            {
+                alert("name can not be null")
+            }
+        }
+    </script>
+</head>
+<body>
+<p id="p1"></p>
+<button onclick="click1()">click</button>
+<p id="p2"></p>
+<iframe src="01.html" width="600" height="400">
+</iframe>
+
+<div id="div1">
+    <button onclick="newDoc()">addNewDoc</button>
+    <button onclick="window.history.back()">back</button>
+    <button onclick="window.history.forward()">forward</button>
+    <button onclick="viewNavigator()">viewNavigator</button></br>
+    <button onclick="message()">message</button>
+    <p id="p3"></p>
+    <p id="p4" style="color: red"></p>
+</div>
+
+</body>
+</html>
