@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>AJAX传输数据的三种方式</title>
+    <script>
+
+        function test()
+        {
+            //var myRequest = getXMLHTTPRequest(); //语法错误，运行部过去。
+            var myRequest = new XMLHttpRequest();
+            var select1 = document.getElementById("opt");
+            if (myRequest)
+            {
+                myRequest.open("GET", "./data.xml", false);
+                myRequest.send();
+                var xml = myRequest.responseXML;
+
+                var datat = xml.getElementsByTagName("CD");
+
+                var testdata = xml.getElementsByTagName("value");
+
+                var html;
+                html = "<select id='opt'><option>" +datat[0].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue + "</option>";
+                html += "<option>" + datat[0].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue + "</option>";
+                html += "<option>" + datat[1].getElementsByTagName("value1")[0].childNodes[0].nodeValue + "</option>";
+                html += "<option>" + testdata[0].childNodes[0].nodeValue + "</option>";
+                //html += "<option>" + xml.getElementsByTagName("data")[0].childNodes[0].nodeValue + "</option>";
+                html += "</select>";
+                select1.outerHTML = html;
+            }
+        }
+    </script>
+</head>
+<body onload="test()">
+    <select id="opt">
+    </select>
+</body>
+</html>

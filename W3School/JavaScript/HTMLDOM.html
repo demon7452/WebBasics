@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>HTML DOM 属性</title>
+</head>
+<body>
+    <p id="intro">Hello world</p>
+    <div id="main">
+        <p>DOM 很有用！</p>
+        <p id="p1">本例演示 <b>getElementsByTagName</b> 方法。</p>
+    </div>
+    <input type="button" onclick="document.body.style.backgroundColor='lavender';" value="改变背景色"><br/>
+    <script>
+        var txt = document.getElementById("intro");
+        var divmain = document.getElementById("main");
+        var para1 = document.getElementById("p1")
+        document.write(txt.innerHTML+"<br/>");
+        document.write(txt.firstChild.nodeValue+"<br/>");
+        document.write(txt.nodeName+"<br/>");
+        document.write(txt.nodeType+"<br/>");
+        document.write(divmain.getElementsByTagName("p")[0].innerHTML+"<br/>");
+
+
+        var para = document.createElement("p");
+        var node = document.createTextNode("this is new.");
+        para.appendChild(node);
+        para.style.color = "red";
+        divmain.appendChild(para);
+
+        var para2 = document.createElement("p");
+        var node2 = document.createTextNode("this is new2.");
+        para2.appendChild(node2);
+        para2.style.color = "blue";
+        document.body.insertBefore(para2,txt);
+
+        //txt.parentNode.removeChild(txt);
+        //txt.parentNode.replaceChild(para2,txt);
+
+    </script>
+</body>
+</html>

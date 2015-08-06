@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>javascript event</title>
+    <style>
+        div
+        {
+            background-color: darkcyan;
+            width: 400px;
+            height: 400px;
+            transition-duration: 6s;
+        }
+    </style>
+    <script>
+        function changetext(id)
+        {
+            id.innerHTML="Hello!";
+        }
+        function displayDate()
+        {
+            document.getElementById("demo").innerHTML=Date();
+        }
+        function checkCookies()
+        {
+            if(navigator.cookieEnabled == true)
+            {
+                alert("cookies are enabled.");
+            }
+            else
+                alert("cookies are not enabled.");
+        }
+        function testUnload()
+        {
+            alert("are you sure quit out");
+        }
+        function upperCase()
+        {
+            var textUp = document.getElementById("fname");
+            textUp.value = textUp.value.toUpperCase();
+        }
+
+        var divMouse = document.getElementById("mouse");
+        function mOver(obj)
+        {
+            obj.style.background="red";
+            obj.innerHTML = "mouse over!"
+            obj.style.width="200px";
+            obj.style.height = "200px";
+        }
+    </script>
+</head>
+<body onload="checkCookies()" onunload="testUnload()">
+    <h1 onclick="changetext(this)">click me !</h1>
+    <button onclick="displayDate()">试一试</button>
+    <p id="demo"></p>
+    <input type="text" id="fname" onchange="upperCase()">
+    <div id="mouse" onmouseover="mOver(this)">
+
+    </div>
+</body>
+</html>
