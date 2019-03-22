@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Hello, world!</title>
+    <link rel="stylesheet" href="https://unpkg.com/ant-design-vue@1.3.7/dist/antd.min.css">
+    <style>
+        body {
+            display: flex;
+            display: -webkit-flex; /* Safari */
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        header, footer {
+            flex-grow: 0;
+        }
+
+        #main-content {
+            display: flex;
+            display: -webkit-flex; /* Safari */
+            flex-grow: 1;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <div id="menu">
+        <a-menu
+                v-model="current"
+                mode="horizontal"
+        >
+            <a-menu-item key="home" v-on:click="renderHome">
+                    <a-icon type="home" />
+            </a-menu-item>
+            <a-menu-item key="lf" v-on:click="renderLf">
+                <span>LF</span>
+                <!--<router-link to="/lf">LF</router-link>-->
+            </a-menu-item>
+            <a-menu-item key="merchant" v-on:click="renderMerchant">
+                <span>Merchant</span>
+                <!--<router-link to="/merchant">Merchant</router-link>-->
+            </a-menu-item>
+        </a-menu>
+
+    </div>
+</header>
+<div id="main-content">
+    <router-view>
+    </router-view>
+
+    <div id="list">
+        <a-list
+                item-layout="horizontal"
+                :data-source="dataList"
+        >
+            <a-list-item slot="renderItem" slot-scope="item, index">
+                <a-list-item-meta
+                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                >
+                    <a slot="title" href="https://vue.ant.design/">{{item.title}}</a>
+                    <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                </a-list-item-meta>
+            </a-list-item>
+        </a-list>
+    </div>
+</div>
+<footer><p>copy right!</p></footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src="https://unpkg.com/ant-design-vue@1.3.7/dist/antd.js"></script>
+<script>
+
+    let vList = new Vue({
+        el: '#list',
+        data: {
+            dataList: [
+                {
+                    title: 'Title 1',
+                },
+                {
+                    title: 'Title 2',
+                }
+            ]
+        }
+    });
+
+    let vMain = new Vue({
+        el: '#main-content',
+        data: {
+            lfList: []
+        },
+        router: new VueRouter({
+        })
+    });
+
+    let vMenu = new Vue({
+       el: '#menu',
+       data: {
+           current: ['home']
+       },
+        methods:{
+            renderHome: function () {
+                console.log("home");
+                // let router = [{
+                //     path: '/home',
+                //     name: 'home',
+                //     component: {
+                //         template: `<div id="lf-list">
+                //                         <a-list
+                //                         :grid="{ gutter: 16, column: 4 }"
+                //                         :data-source="lfList">
+                //                             <a-list-item slot="renderItem" slot-scope="item, index">
+                //                               <a-card :title="item.title">Card content</a-card>
+                //                             </a-list-item>
+                //                         </a-list>
+                //                    </div>`
+                //     }
+                // }];
+                // vMain.$router.addRoutes(router);
+                // vMain.$router.push("/home");
+
+            },
+            renderLf: function () {
+                console.log("lf");
+                vList.dataList = [
+                    {
+                        title: 'Title 1',
+                    },
+                    {
+                        title: 'Title 2',
+                    },
+                    {
+                        title: 'Title 3',
+                    },
+                    {
+                        title: 'Title 4',
+                    },
+                ];
+                // let router = [{
+                //     path: '/lf',
+                //     name: 'lf',
+                //     component: {
+                //         template: `<h1>lf2</h1>`
+                //     }
+                // }];
+                // vMain.$router.addRoutes(router);
+                // vMain.$router.push("/lf");
+            },
+            renderMerchant: function () {
+                console.log("merchant");
+                let router = [{
+                    path: '/merchant',
+                    name: 'merchant',
+                    component: {
+                        template: `<h1>merchant</h1>`
+                    }
+                }];
+                vMain.$router.addRoutes(router);
+                vMain.$router.push("/merchant");
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        vMenu.renderHome();
+    });
+
+
+</script>
+
+</body>
+</html>
