@@ -53,9 +53,22 @@
     </div>
 </header>
 <div id="main-content">
-    <router-view>
+    <div id="lf-list" v-if="lfVisible">
+        <a-list
+                item-layout="horizontal"
+                :data-source="lfList"
+        >
+            <a-list-item slot="renderItem" slot-scope="item, index">
+                <a-list-item-meta
+                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                >
+                    <a slot="title" href="https://vue.ant.design/">{{item.title}}</a>
+                    <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                </a-list-item-meta>
+            </a-list-item>
+        </a-list>
+    </div>
 
-    </router-view>
 </div>
 <footer><p>copy right!</p></footer>
 
@@ -67,8 +80,10 @@
 
     let vMain = new Vue({
         el: '#main-content',
-        router: new VueRouter({
-        })
+        data:{
+            lfVisible: false,
+            lfList: []
+        }
     });
 
     let vMenu = new Vue({
@@ -79,67 +94,28 @@
         methods:{
             renderHome: function () {
                 console.log("home");
-                let router = [{
-                    path: '/home',
-                    name: 'home',
-                    component: {
-                        template: `<div id="lf-list">
-                                        <a-list
-                                        :grid="{ gutter: 16, column: 4 }"
-                                        :data-source="lfList">
-                                            <a-list-item slot="renderItem" slot-scope="item, index">
-                                              <a-card :title="item.title">Card content</a-card>
-                                            </a-list-item>
-                                        </a-list>
-                                   </div>`
-                    }
-                }];
-                new Vue({
-                    el: 'lf-list',
-                    data:{
-                        lfList: [
-                            {
-                                title: 'Title 1',
-                            },
-                            {
-                                title: 'Title 2',
-                            },
-                            {
-                                title: 'Title 3',
-                            },
-                            {
-                                title: 'Title 4',
-                            },
-                        ]
-                    },
-                });
-                vMain.$router.addRoutes(router);
-                vMain.$router.push("/home");
-
             },
             renderLf: function () {
                 console.log("lf");
-                let router = [{
-                    path: '/lf',
-                    name: 'lf',
-                    component: {
-                        template: `<h1>lf2</h1>`
-                    }
-                }];
-                vMain.$router.addRoutes(router);
-                vMain.$router.push("/lf");
+                vMain.lfVisible = true;
+                vMain.lfList = [
+                    {
+                        title: 'Ant Design Title 1',
+                    },
+                    {
+                        title: 'Ant Design Title 2',
+                    },
+                    {
+                        title: 'Ant Design Title 3',
+                    },
+                    {
+                        title: 'Ant Design Title 4',
+                    },
+                ];
             },
             renderMerchant: function () {
                 console.log("merchant");
-                let router = [{
-                    path: '/merchant',
-                    name: 'merchant',
-                    component: {
-                        template: `<h1>merchant</h1>`
-                    }
-                }];
-                vMain.$router.addRoutes(router);
-                vMain.$router.push("/merchant");
+                vMain.lfVisible = false;
             }
         }
     });
